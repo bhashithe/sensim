@@ -7,13 +7,13 @@ class Sensor():
 		self.status = status
 		self.cover = set()
 
-	def shufle():
+	def shufle(self):
 		"""
 			change the covering set of the sensor
 		"""
 		pass
 
-	def adjust_range(adjustment):
+	def adjust_range(self, adjustment):
 		"""
 		given an adjustment, changes the range of the sensor. Also the range cannot go below 0
 		Arguments:
@@ -25,13 +25,13 @@ class Sensor():
 		else:
 			self.range = 0
 
-	def toggle():
+	def toggle(self):
 		"""
 		toggles the status of the sensor
 		"""
 		self.status = not self.status
 
-	def add_to_cover(item):
+	def add_to_cover(self, item):
 		"""
 		add an item to the sensor cover
 		Arguments:
@@ -40,7 +40,7 @@ class Sensor():
 
 		self.cover.add(item)
 
-	def remove_from_cover(item):
+	def remove_from_cover(self, item):
 		"""
 		remove an item to the sensor cover
 		Arguments:
@@ -51,3 +51,32 @@ class Sensor():
 			self.cover.remove(item)
 		except KeyError:
 			pass
+
+	def distance(self, target):
+		"""
+		calculates the distance to a target from this sensor
+		Arguments:
+			target: target object
+
+		returns:
+			the distance
+		"""
+
+		return abs(self.pos[0] - target.pos[0]) + abs(self.pos[1] - target.pos[1])
+
+	def reachable(self, target_set):
+		"""
+		finds the reachable targets off a list of targets
+		Arguments:
+			target_set: a itarable containing targets
+
+		returns: 
+			A list of reachable targets
+		"""
+		
+		reachables = []
+		for target in target_set:
+			if self.distance(target) <= self.range:
+				reachables.append(target)
+
+		return reachables
