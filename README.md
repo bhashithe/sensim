@@ -20,4 +20,4 @@ These scripts assume that all sensors are initially being turned on and then put
 
 # TODO
 - [ ] Generalize adding protocols
-- [ ] Add animating `pyplot` plots to visualize
+- [x] Add animating `pyplot` plots to visualize
