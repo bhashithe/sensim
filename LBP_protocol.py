@@ -5,7 +5,7 @@ from matplotlib import animation
 from Sensor import Sensor
 from Target import Target
 
-network_items = [(0,0,4), (3,0), (4,1,3), (5,3), (2,1,2), (1,3), (4,5,2)]
+network_items = [(0,0,4), (3,0), (4,1,3), (5,3), (2,2,2), (1,3), (4,5,2)]
 
 def from_items(items):
 	sensors = []
@@ -20,6 +20,7 @@ def from_items(items):
 
 def create_network(sensors, targets):
 	for sensor in sensors:
+		sensor.on()
 		sensor.cover = set(sensor.reachable(targets))
 	return sensors, targets
 
@@ -33,13 +34,12 @@ def on_rule(network):
 		network: a tuple in the form of (sensors, targets)
 	"""
 	sensors, targets = network
-
 	for sensor in sensors:
-		# remove the sensor from the network if no battery left
+		# remove sensor if battery zeor in advance
 		if sensor.battery <= 0:
 			sensors.remove(sensor)
-			continue
-
+	for sensor in sensors:
+		# remove the sensor from the network if no battery left
 		for target in sensor.cover:
 			sensors.remove(sensor)
 			for ots in sensors:
@@ -48,8 +48,8 @@ def on_rule(network):
 					break
 			else:
 				sensor.on()
-
 			sensors.append(sensor)
+
 	return sensors, targets
 
 
@@ -62,8 +62,11 @@ def off_rule(network):
 	Arguments:
 		network: a tuple in the form of (sensors, targets)
 	"""
-
 	sensors, targets = network
+	for sensor in sensors:
+		# remove sensor if battery zeor in advance
+		if sensor.battery <= 0:
+			sensors.remove(sensor)
 	for sensor in sensors:
 		os_cover = set() # targets covered by other sensors
 		for target in sensor.cover:
@@ -71,7 +74,6 @@ def off_rule(network):
 			for ots in sensors:
 				if target in ots.cover and ots.status:
 					os_cover.add(target)
-
 			sensors.append(sensor)
 		if os_cover == sensor.cover:
 			sensor.off()
@@ -80,6 +82,8 @@ def off_rule(network):
 def shift(network):
 	network = on_rule(network)
 	network = off_rule(network)
+	
+	print('-'*20)
 
 	for sensor in network[0]:
 		if sensor.status:
