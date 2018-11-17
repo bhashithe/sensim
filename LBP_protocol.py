@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from matplotlib import pyplot
+from matplotlib import pyplot as plt
 from matplotlib import animation
 from Sensor import Sensor
 from Target import Target
