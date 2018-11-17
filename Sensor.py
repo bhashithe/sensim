@@ -56,10 +56,12 @@ class Sensor():
 		change status to on
 		"""
 		self.status = 1
+		print(self, 'turned on')
 
 	def off(self):
 		"""
 		change status to off
 		"""
 		self.status = 0
+		print(self, 'turned off')
 
