@@ -110,7 +110,7 @@ def main():
 		for sensor in sensors:
 			sensor_x.append(sensor.pos[0])
 			sensor_y.append(sensor.pos[1])
-		for sensor in sensors:
+		for target in target:
 			target_x.append(target.pos[0])
 			target_y.append(target.pos[1])
 
