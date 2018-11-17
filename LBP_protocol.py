@@ -117,6 +117,7 @@ def main():
 		axis.clear()
 		axis.scatter(sensor_x, sensor_y, marker='s', color='green')
 		axis.scatter(target_x, target_y, marker='s', color='red')
+		fig.canvas.draw()
 		time.sleep(1)
 
 	plt.show()
