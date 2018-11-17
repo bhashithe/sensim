@@ -1,5 +1,5 @@
 class Target():
-	def __init_(self, pos):
+	def __init__(self, pos):
 		self.pos = pos
 
 	def move(self, new_pos):

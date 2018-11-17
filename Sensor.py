@@ -80,3 +80,15 @@ class Sensor():
 				reachables.append(target)
 
 		return reachables
+
+	def on(self):
+		"""
+		change status to on
+		"""
+		self.status = 1
+
+	def off(self):
+		"""
+		change status to off
+		"""
+		self.status = 0
