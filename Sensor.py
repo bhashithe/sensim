@@ -7,11 +7,8 @@ class Sensor():
 		self.status = status
 		self.cover = set()
 
-	def shufle(self):
-		"""
-			change the covering set of the sensor
-		"""
-		pass
+	def __str__(self):
+		return 'Sensor: battery: {0}, position: ({1}), range: {2}, status: {3}'.format(self.battery, self.pos, self.range, self.status)
 
 	def adjust_range(self, adjustment):
 		"""
@@ -24,33 +21,6 @@ class Sensor():
 			self.range += adjustment
 		else:
 			self.range = 0
-
-	def toggle(self):
-		"""
-		toggles the status of the sensor
-		"""
-		self.status = not self.status
-
-	def add_to_cover(self, item):
-		"""
-		add an item to the sensor cover
-		Arguments:
-			item: item to add to the set, if already added ignored
-		"""
-
-		self.cover.add(item)
-
-	def remove_from_cover(self, item):
-		"""
-		remove an item to the sensor cover
-		Arguments:
-			item: item to remove from the set, if not in the set ignored
-		"""
-		
-		try:
-			self.cover.remove(item)
-		except KeyError:
-			pass
 
 	def distance(self, target):
 		"""
@@ -92,3 +62,4 @@ class Sensor():
 		change status to off
 		"""
 		self.status = 0
+
