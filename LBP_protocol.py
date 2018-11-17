@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from matplotlib import pyplot
+from matplotlib import pyplot as plt
 from matplotlib import animation
 from Sensor import Sensor
 from Target import Target
@@ -92,3 +92,33 @@ def shift(network):
 		print(sensor.cover)
 
 	return network
+
+def main():
+	fig = plt.figure()
+	axis = fig.add_subplot(1,1,1)
+	
+	network = from_items(network_items)
+	while len(network[0]):
+		network = shift(network)
+		anim = animation.FuncAnimation(fig, animate, interval=1000)
+		time.sleep(1)
+
+def animate(i):
+	sensors, targets = network
+	sensor_x = []
+	sensor_y = []
+
+	target_x = []
+	target_y = []
+
+	for sensor in sensors:
+		sensor_x.append(sensor.pos[0])
+		sensor_y.append(sensor.pos[1])
+
+	for target in targets:
+		target_x.append(target.pos[0])
+		target_y.append(target.pos[1])
+
+	axis.clear()
+	axis.scatter(sensor_x, sensor_y, color='green', marker='s')
+	axis.scatter(target_x, target_y, color='black')
