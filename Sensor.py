@@ -10,6 +10,9 @@ class Sensor():
 	def __str__(self):
 		return 'Sensor: battery: {0}, position: ({1}), range: {2}, status: {3}'.format(self.battery, self.pos, self.range, self.status)
 
+	def __repr__(self):
+		return 'Sensor: battery: {0}, position: ({1}), range: {2}, status: {3}'.format(self.battery, self.pos, self.range, self.status)
+
 	def adjust_range(self, adjustment):
 		"""
 		given an adjustment, changes the range of the sensor. Also the range cannot go below 0
