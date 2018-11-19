@@ -6,6 +6,7 @@ class Sensor():
 		self.range = range
 		self.status = status
 		self.cover = set()
+		self.manage = set()
 
 	def __str__(self):
 		return 'Sensor: battery: {0}, position: ({1}), range: {2}, status: {3}'.format(self.battery, self.pos, self.range, self.status)
@@ -68,3 +69,8 @@ class Sensor():
 		self.status = 0
 		print(self, 'turned off')
 
+	def find_manage(self):
+		"""
+		find the managing targets for this sensor
+		"""
+		pass
