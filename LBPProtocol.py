@@ -59,45 +59,16 @@ class LBPProtocol(Protocol):
 		print(self.network)
 
 	def shift(self):
-		self.on_rule()
-		self.off_rule()
-		
-		print('-'*20)
+            """
+            decides how to shuffle the sensors in the network
+            """
+            self.on_rule()
+            self.off_rule()
+            
+            print('-'*20)
 
-		for sensor in self.network[0]:
-			if sensor.status:
-				sensor.battery -= 1
-			print(sensor)
-			print(sensor.cover)
-
-	def simulate(self, graphs=True):
-		if graphs:
-			fig = plt.figure()
-			axis = fig.add_subplot(1,1,1)
-			fig.show()
-
-		network = self.network
-
-		while len(network[0]):
-			self.shift()
-			sensors, targets = self.network
-			sensor_x = []
-			sensor_y = []
-			target_x = []
-			target_y = []
-			for sensor in sensors:
-				sensor_x.append(sensor.pos[0])
-				sensor_y.append(sensor.pos[1])
-			for target in targets:
-				target_x.append(target.pos[0])
-				target_y.append(target.pos[1])
-
-			if graphs:
-				axis.clear()
-				axis.scatter(sensor_x, sensor_y, marker='s', color='green')
-				axis.scatter(target_x, target_y, marker='s', color='red')
-				fig.canvas.draw()
-			time.sleep(1)
-
-		if graphs: 
-			plt.show()
+            for sensor in self.network[0]:
+                    if sensor.status:
+                            sensor.battery -= 1
+                    print(sensor)
+                    print(sensor.cover)

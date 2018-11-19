@@ -34,6 +34,13 @@ class Protocol(ABC):
 		"""
 		pass
 
+        @abstractmethod
+        def shift(self):
+            """
+            how a schedule is changed will be defined here
+            """
+            pass
+
 	def from_items(self, items):
 		"""
 		creates a network with self.items initializing Sensor and Target objects
