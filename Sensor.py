@@ -73,4 +73,4 @@ class Sensor():
 		"""
 		find the managing targets for this sensor
 		"""
-		pass
+
