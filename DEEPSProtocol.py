@@ -37,3 +37,18 @@ class DEEPSProtocol(Protocol):
 		if not in charge of other targets which are already covered then turn off
 		"""
 		pass
+
+        def shift(self):
+            """
+            this needs to be changed from LBP
+            """
+
+        def find_sinks(self):
+            """
+            finds the poorest targets in the network
+            """
+            sensors, targets = self.network
+            target_richness = []
+            for sensor in sensors:
+                for target in sensor.cover:
+                   target.richness += sensor.battery

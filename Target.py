@@ -1,9 +1,10 @@
 class Target():
 	def __init__(self, pos):
 		self.pos = pos
+                self.richness = 0
 	
 	def __repr__(self):
-		return 'Target: position {0}'.format(self.pos)
+	        return 'Target: position {0}'.format(self.pos)
 
 	def __str__(self):
 		return 'Target: position {0}'.format(self.pos)
