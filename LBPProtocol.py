@@ -70,7 +70,6 @@ class LBPProtocol(Protocol):
 			print(sensor)
 			print(sensor.cover)
 
-	@staticmethod
 	def simulate(self, graphs=True):
 		if graphs:
 			fig = plt.figure()
