@@ -10,6 +10,10 @@ Create a class, following name convention. If the protocol abbreviation is DEEPS
 
 For now, the simulation is also implemented at the Protocol implementation, but in future this will be moved into a separate file which should be easier for maintaining.
 
+### Testing a protocol
+
+You can do this with the `Simulation.py` script provided. Change the protocol object `lbp = LBPProtocol(network_items)` to what ever protocol from the implemented list of protocols. To initialize this protocol we have used a python list `network_items`. This list has tuples as items, if the tuple have 3 items then this is a `Sensor` with first two items being `x, y` position in the environment and then 3rd item will be the battery of the sensor. If there are only two items in this tuple this mean this is a `Target` and its position is given the two values.
+
 ### Important notes
 
 - These scripts assume that all sensors are initially being turned on and then put through the protocol.
