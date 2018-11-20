@@ -79,8 +79,8 @@ class DEEPSProtocol(Protocol):
 			if sensor.battery <= 0:
 				sensors.remove(sensor)
 		self.network = sensors, targets
-		self.on_rule()
 		self.off_rule()
+		self.on_rule()
 		print('-'*30)
 		for sensor in self.network[0]:
 			if sensor.status:
