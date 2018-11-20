@@ -34,19 +34,12 @@ class Protocol(ABC):
 		"""
 		pass
 
-        @abstractmethod
-        def shift(self):
-            """
-            how a schedule is changed will be defined here
-            """
-            pass
-
-        @abstractmethod
-        def shift(self):
-            """
-            control how the shift schedules are implemented
-            """
-            pass
+	@abstractmethod
+	def shift(self):
+			"""
+			control how the shift schedules are implemented
+			"""
+			pass
         
 	def from_items(self, items):
 		"""
