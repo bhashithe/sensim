@@ -15,7 +15,6 @@ class DEEPSProtocol(Protocol):
 		"""
 		sensors, targets = self.network
 		for sensor in sensors:
-			# remove the sensor from the network if no battery left
 			for target in sensor.cover:
 				sensors.remove(sensor)
 				for ots in sensors:
@@ -33,7 +32,6 @@ class DEEPSProtocol(Protocol):
 		or in charge of targets which are already covered then turn off
 		"""
 		sensors, targets = self.network
-		self.find_managers()
 		for sensor in sensors:
 			if len(sensor.manage) == 0:
 				sensor.off()
@@ -74,6 +72,8 @@ class DEEPSProtocol(Protocol):
 		decides how to shuffle the sensors in the network
 		"""
 		sensors, targets = self.network
+		#find the managers of all sensors
+		self.find_managers()
 		#first remove sensors if they have 0 or less battery
 		for sensor in sensors:
 			if sensor.battery <= 0:
@@ -81,7 +81,7 @@ class DEEPSProtocol(Protocol):
 		self.network = sensors, targets
 		self.on_rule()
 		self.off_rule()
-		print('-'*20)
+		print('-'*30)
 		for sensor in self.network[0]:
 			if sensor.status:
 				sensor.battery -= 1
