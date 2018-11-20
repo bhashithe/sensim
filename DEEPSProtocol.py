@@ -1,6 +1,7 @@
 from Protocol import Protocol
 import time
 from matplotlib import pyplot as plt
+import operator
 
 class DEEPSProtocol(Protocol):
 	def __init__(self, items):
@@ -51,23 +52,21 @@ class DEEPSProtocol(Protocol):
 		for sensor in sensors:
 			for target in sensor.cover:
 				#(i)
-				if target == self.find_sinks():
+				if target == self.find_sinks(sensor):
 					ots_covering_t = []
 					for ots in sensors:
-						if target in ots.cover and ots.status:
+						if target in ots.cover:
 							ots_covering_t.append(ots) #appending the sensor again ?
-					#all sensors covering this target, remove the richest sensors and make it the manager
-					ots_covering_t.sort(key=lambda x: x.battery, reverse=True)
-					manager = ots_covering_t.pop(0)
+					#all sensors covering this target, get the richest sensors and make it the manager for this target
+					manager = max(ots_covering_t, key=operator.attrgetter('battery'))
 					manager.manage.add(target)
 				#(ii)
-				if target == self.find_hills():
+				if target == self.find_hills(sensor):
 					ots_covering_t = []
 					for ots in sensors:
-						if target in ots.cover and ots.status:
+						if target in ots.cover:
 							ots_covering_t.append(ots) #appending the sensror
-					ots_covering_t.sort(key=lambda x: x.battery, reverse=True)
-					manager = ots_covering_t.pop(0)
+					manager = max(ots_covering_t, key=operator.attrgetter('battery'))
 					manager.manage.add(target)
 
 	def shift(self):
@@ -89,26 +88,37 @@ class DEEPSProtocol(Protocol):
 			print(sensor)
 			print(sensor.cover)
 
-	def find_sinks(self):
+	def find_sinks(self, sensor):
 		"""
-		finds the poorest targets in the cover
+		finds the poorest targets in the cover of a given sensor
 		"""
-		sensors, targets = self.network
-		for sensor in sensors:
-			for target in sensor.cover:
-				target.richness += sensor.battery
-		cover = list(sensor.cover)
-		cover.sort(key=lambda x: x.richness, reverse=True)
-		return cover.pop(0)
+		osensors, otargets = self.network
+		#forget previous richness values
+		self.reset_richness()
+		for target in sensor.cover:
+			for osensor in osensors:
+				if target in osensor.cover:
+					target.richness += osensor.battery
+		return min(sensor.cover, key=operator.attrgetter('richness'))
 
-	def find_hills(self):
+	def find_hills(self, sensor):
 		"""
 		finds the richest targets in the cover
 		"""
+		osensors, otargets = self.network
+		#forget previous richness values
+		self.reset_richness()
+		for target in sensor.cover:
+			for osensor in osensors:
+				if target in osensor.cover:
+					target.richness += osensor.battery
+		return max(sensor.cover, key=operator.attrgetter('richness'))
+
+	def reset_richness(self):
+		"""
+		resets richness for a new reshufle
+		"""
 		sensors, targets = self.network
-		for sensor in sensors:
-			for target in sensor.cover:
-				target.richness += sensor.battery
-		cover = list(sensor.cover)
-		cover.sort(key=lambda x: x.richness, reverse=False)
-		return cover.pop(0)
+		for target in targets:
+			target.richness = 0
+		self.network = sensors, targets
