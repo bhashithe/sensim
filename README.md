@@ -17,8 +17,8 @@ For now, the simulation is also implemented at the Protocol implementation, but 
 
 ## Protocols which are implemented
 
-- ![Load Balancing Protocol](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p3
-- ![DEEPS](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p4
+- [Load Balancing Protocol](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p3
+- [DEEPS](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p4
 
 # TODO
 - [x] Generalize adding protocols
