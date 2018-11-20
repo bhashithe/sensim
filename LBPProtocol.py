@@ -59,16 +59,14 @@ class LBPProtocol(Protocol):
 		print(self.network)
 
 	def shift(self):
-            """
-            decides how to shuffle the sensors in the network
-            """
-            self.on_rule()
-            self.off_rule()
-            
-            print('-'*20)
-
-            for sensor in self.network[0]:
-                    if sensor.status:
-                            sensor.battery -= 1
-                    print(sensor)
-                    print(sensor.cover)
+		"""
+		decides how to shuffle the sensors in the network
+		"""
+		self.on_rule()
+		self.off_rule()
+		print('-'*20)
+		for sensor in self.network[0]:
+			if sensor.status:
+				sensor.battery -= 1
+			print(sensor)
+			print(sensor.cover)
