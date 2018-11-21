@@ -3,6 +3,7 @@ Base class for implementing protocols
 Abstract methods:
 	- on_rule()
 	- off_rule()
+	- shift()
 """
 
 from abc import ABC, abstractmethod

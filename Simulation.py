@@ -7,7 +7,7 @@ from matplotlib import lines as mlines
 
 network_items = [(0,0,4),(3,3,2),(4,1,3),(1,3),(3,0), (5,3)] 
 
-lbp = LBPProtocol(network_items)
+test_protocol = LBPProtocol(network_items)
 
 def simulate(protocol, graphs=True):
     if graphs:
@@ -46,4 +46,4 @@ def simulate(protocol, graphs=True):
         plt.show()
 
 if __name__ == '__main__':
-    simulate(lbp)
+    simulate(test_protocol)
