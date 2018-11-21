@@ -8,11 +8,11 @@ This is a sensor network simulation framework written in python. This can be use
 
 Create a class, following name convention. If the protocol abbreviation is DEEPS then create a file with `DEEPSProtocol.py` and give the class name as `DEEPSProtocol` extending `Protocol` class given here with. Sample implementation is given at the file LBPProtocol. Three abstract functions should be implemented `on_rule`, `off_rule` and `shift`. These will control how the sensors are turned on and off and `shift` will control one schedule instance of turning on and off the sensors.
 
-For now, the simulation is also implemented at the Protocol implementation, but in future this will be moved into a separate file which should be easier for maintaining.
-
 ### Testing a protocol
 
 You can do this with the `Simulation.py` script provided. Change the protocol object `test_protocol = LBPProtocol(network_items)` to what ever protocol from the implemented list of protocols. To initialize this protocol we have used a python list `network_items`. This list has tuples as items, if the tuple have 3 items then this is a `Sensor` with first two items being `x, y` position in the environment and then 3rd item will be the battery of the sensor. If there are only two items in this tuple this mean this is a `Target` and its position is given the two values.
+
+Now the `simulate()` function returns a tuple where first index is the time steps the network was up. The 2nd index has the number of targets covered in respective time step
 
 ### Important notes
 
@@ -27,4 +27,5 @@ You can do this with the `Simulation.py` script provided. Change the protocol ob
 # TODO
 - [x] Generalize adding protocols
 - [x] Add animating `pyplot` plots to visualize
-- [ ] Add functionality to take simulations out of protocols
+- [x] Add functionality to take simulations out of protocols
+- [ ] Simulation insights plotting
