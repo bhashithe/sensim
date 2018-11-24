@@ -78,7 +78,7 @@ class Simulation():
 						for target in sensor.cover:
 							axis.plot([sensor.pos[0], target.pos[0]], [sensor.pos[1], target.pos[1]], linewidth=1, linestyle='-')
 							fig.canvas.draw()
-							time.sleep(1)
+				time.sleep(1)
 			count+=1
 			t.append(count)
 			cover = set()
