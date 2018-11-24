@@ -28,7 +28,7 @@ class Sensor():
 
 	def distance(self, target):
 		"""
-		calculates the distance to a target from this sensor
+		calculates the euclidean distance to a target from this sensor
 		Arguments:
 			target: target object
 
@@ -36,7 +36,7 @@ class Sensor():
 			the distance
 		"""
 
-		return abs(self.pos[0] - target.pos[0]) + abs(self.pos[1] - target.pos[1])
+		return (self.pos[0] - target.pos[0])**2 + (self.pos[1] - target.pos[1])**2
 
 	def reachable(self, target_set):
 		"""
