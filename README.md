@@ -10,9 +10,19 @@ Create a class, following name convention. If the protocol abbreviation is DEEPS
 
 ### Testing a protocol
 
-You can do this with the `Simulation.py` script provided. Change the protocol object `test_protocol = LBPProtocol(network_items)` to what ever protocol from the implemented list of protocols. To initialize this protocol we have used a python list `network_items`. This list has tuples as items, if the tuple have 3 items then this is a `Sensor` with first two items being `x, y` position in the environment and then 3rd item will be the battery of the sensor. If there are only two items in this tuple this mean this is a `Target` and its position is given the two values.
+`Simulation` is now a class. To test a simulation, you can instantiate it and then pass the protocol to it. You also can generate a random network using this class.
 
-Now the `simulate()` function returns a tuple where first index is the time steps the network was up. The 2nd index has the number of targets covered in respective time step
+``` python
+from Simulation import Simulation
+from MTLBProtocol import MTLBProtocol
+
+sim = Simulation()
+network_items = sim.generate_network(4,7, max_battery = 5)
+mtlbp = MTLBProtocol(network_items)
+
+times, coverings = sim.simulate(mtlbp, graphs=True)
+```
+
 
 ### Important notes
 
@@ -23,6 +33,7 @@ Now the `simulate()` function returns a tuple where first index is the time step
 
 - [Load Balancing Protocol](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p3
 - [DEEPS](https://grid.cs.gsu.edu/~cscazz/postscript/sawn06deeps.pdf), p4
+- Moving Target Load Balancing Protocol (MTLBP)
 
 # TODO
 - [x] Generalize adding protocols
