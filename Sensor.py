@@ -1,6 +1,6 @@
 class Sensor():
 	
-	def __init__(self, battery, pos, range=3, status=0):
+	def __init__(self, battery, pos, range=0.15, status=0):
 		self.battery = battery
 		self.pos = pos
 		self.range = range
