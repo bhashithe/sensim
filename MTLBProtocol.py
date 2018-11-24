@@ -21,8 +21,8 @@ class MTLBProtocol(LBPProtocol):
 			sensor.cover = set(sensor.reachable(targets))
 		self.network = sensors, targets
 
-		self.off_rule()
 		self.on_rule()
+		self.off_rule()
 		print('-'*20)
 		for sensor in self.network[0]:
 			if sensor.status:
