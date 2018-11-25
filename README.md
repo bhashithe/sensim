@@ -1,6 +1,10 @@
-# sensim
+# SenSim
 
 This is a sensor network simulation framework written in python. This can be used to simulate different protocols on a user defined network of sensors and targets.
+
+## Environment
+
+To handle some implementation obstacles, we had to define an environment where we constrain a 'test area'. This is because when randomly generating the sensors and targets they are generated using `numpy.random.rand()` which generates a number between [0-1]. And you have to select a range which will ultimately cover all targets. Therefore the default range of all the sensors has been set to `0.5` which solves this problem partially.
 
 ## To simulate the protocols
 
@@ -23,6 +27,21 @@ mtlbp = MTLBProtocol(network_items)
 times, coverings = sim.simulate(mtlbp, graphs=True)
 ```
 
+### Compare created protocols
+
+You can compare two protocol objects on how they behave on their environment. This is supported by `Simulation.compare(p1,p2)`. Currently this implementation is not capable of running graphical simulations but it will give the computed outputs for times of the network cover.
+
+``` python
+from MTDEEPSProtocol import MTDEEPSProtocol
+from MTLBProtocol import MTLBProtocol
+
+sim = Simulation()
+network_items = sim.generate_network(4,7, max_battery = 5)
+p1 = MTLBProtocol(network_items)
+p2 = MTDEEPSProtocol(network_items)
+
+times, p1_coverings, p2_coverings = sim.compare(p1, p2)
+```
 
 ### Important notes
 
