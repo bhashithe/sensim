@@ -15,8 +15,7 @@ class MTLBProtocol(LBPProtocol):
 		"""
 		sensors, targets = self.network
 		for target in targets:
-			print(target.random())
-			#target.move(target.random())
+			target.move(target.random())
 		for sensor in sensors:
 			sensor.cover = set(sensor.reachable(targets))
 		self.network = sensors, targets
