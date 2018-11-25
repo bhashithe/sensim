@@ -20,6 +20,13 @@ class Protocol(ABC):
 			
 		"""
 		self.network = self.from_items(items)
+		self.moving = False
+
+	def __eq__(self, other):
+		return self.network == other.network and self.moving == other.moving
+
+	def __ne__(self, other):
+		return self.network != other.network or self.moving != other.moving
 
 	@abstractmethod
 	def on_rule(self):

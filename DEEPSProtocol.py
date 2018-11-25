@@ -72,13 +72,13 @@ class DEEPSProtocol(Protocol):
 		decides how to shuffle the sensors in the network
 		"""
 		sensors, targets = self.network
-		#find the managers of all sensors
-		self.find_managers()
 		#first remove sensors if they have 0 or less battery
 		for sensor in sensors:
 			if sensor.battery <= 0:
 				sensors.remove(sensor)
 		self.network = sensors, targets
+		#find the managers of all sensors
+		self.find_managers()
 		self.off_rule()
 		self.on_rule()
 		print('-'*30)

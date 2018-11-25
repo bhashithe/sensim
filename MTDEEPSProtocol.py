@@ -6,14 +6,13 @@ import operator
 class MTDEEPSProtocol(DEEPSProtocol):
 	def __init__(self, items):
 		super(MTDEEPSProtocol, self).__init__(items)
+		self.moving = True
 
 	def shift(self):
 		"""
 		decides how to shuffle the sensors in the network
 		"""
 		sensors, targets = self.network
-		for target in targets:
-			target.move(target.random())
 		#find reachable again, since targets are moving now
 		for sensor in sensors:
 			sensor.cover = set(sensor.reachable(targets))

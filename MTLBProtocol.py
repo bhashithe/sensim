@@ -6,6 +6,7 @@ class MTLBProtocol(LBPProtocol):
 	"""
 	def __init__(self, items):
 		super(MTLBProtocol, self).__init__(items)
+		self.moving = True
 
 	def shift(self):
 		"""
@@ -14,8 +15,6 @@ class MTLBProtocol(LBPProtocol):
 		For each shift, the cover should be recalculated
 		"""
 		sensors, targets = self.network
-		for target in targets:
-			target.move(target.random())
 		for sensor in sensors:
 			sensor.cover = set(sensor.reachable(targets))
 		self.network = sensors, targets
