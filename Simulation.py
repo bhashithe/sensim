@@ -11,9 +11,6 @@ class Simulation():
 	def __init__(self, protocol=None, graphs=True):
 		self.protocol = protocol
 
-	def dummy(self):
-		return Target((5,5))
-
 	def generate_network(self, num_sensors, num_targets, max_battery=10):
 		"""
 		generate a network item list using the given numbers of sensors targets and max battery
@@ -39,7 +36,7 @@ class Simulation():
 		"""
 		simulate a protocol
 		Arguments:
-			protocol: the `Protocol` object
+			protocol: a `Protocol` object
 			graphs: True/False, if needed interactive graph to be plotted
 
 		Returns:
@@ -57,6 +54,12 @@ class Simulation():
 		t = []
 		covering_targets = []
 		while len(network[0]):
+			#move targets if protocol is defined as moving targets
+			if protocol.moving:
+				sensors, targets = protocol.network
+				for target in targets:
+					target.move(target.random())
+			protocol.network = sensors, targets
 			protocol.shift()
 			sensors, targets = protocol.network
 			sensor_x = []
@@ -90,3 +93,55 @@ class Simulation():
 		if graphs:
 			plt.show()
 		return t, covering_targets
+
+	def network_compare(self, na, nb):
+		asensors, atargets = na
+		bsensors, btargets = nb
+
+	def compare(self, protocol_a, protocol_b):
+		"""
+		Compare two given protocols with the same network
+		"""
+		#assertion dropped, make sure that you initialize the network with the same targets and sensors
+		#if not protocol_a.network == protocol_b.network:
+		#	print("protocols must be initialized with the same network")
+		#	return
+
+		count = 0 
+		t = []
+		a_covering_targets = []
+		b_covering_targets = []
+		while len(protocol_a.network[0]):
+			#move targets if protocol is defined as moving targets
+			if protocol_a.moving and protocol_b.moving:
+				asensors, atargets = protocol_a.network
+				bsensors, btargets = protocol_b.network
+				for target in atargets:
+					target.move(target.random())
+				#both protocol share the same targets, but different sensors
+				protocol_a.network = asensors, atargets
+				protocol_b.network = bsensors, atargets
+			elif protocol_a.moving ^ protocol_b.moving:
+				print("both protocols must be of same type")
+				return
+			#complete shift
+			protocol_a.shift()
+			protocol_b.shift()
+			count += 1
+			t.append(count)
+			#calculate cover
+			cover = set()
+			sensors, targets = protocol_a.network
+			for sensor in sensors:
+				if sensor.status:
+					for target in sensor.cover:
+						cover.add(target)
+			a_covering_targets.append(len(cover))
+			cover = set()
+			sensors, targets = protocol_b.network
+			for sensor in sensors:
+				if sensor.status:
+					for target in sensor.cover:
+						cover.add(target)
+			b_covering_targets.append(len(cover))
+		return t, a_covering_targets, b_covering_targets
