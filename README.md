@@ -59,3 +59,5 @@ times, p1_coverings, p2_coverings = sim.compare(p1, p2)
 - [x] Add animating `pyplot` plots to visualize
 - [x] Add functionality to take simulations out of protocols
 - [ ] Simulation insights plotting
+- [ ] LBP battery issue
+- [ ] Range 20/15

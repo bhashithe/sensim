@@ -53,6 +53,7 @@ class LBPProtocol(Protocol):
 					if target in ots.cover and ots.status:
 						os_cover.add(target)
 				sensors.append(sensor)
+			#issue
 			if os_cover == sensor.cover:
 				sensor.off()
 		self.network = sensors, targets

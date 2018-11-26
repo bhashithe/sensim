@@ -59,7 +59,7 @@ class Simulation():
 				sensors, targets = protocol.network
 				for target in targets:
 					target.move(target.random())
-			protocol.network = sensors, targets
+				protocol.network = sensors, targets
 			protocol.shift()
 			sensors, targets = protocol.network
 			sensor_x = []
@@ -111,9 +111,11 @@ class Simulation():
 		t = []
 		a_covering_targets = []
 		b_covering_targets = []
+		a_alive = []
+		b_alive = []
 		while len(protocol_a.network[0]):
 			#move targets if protocol is defined as moving targets
-			if protocol_a.moving and protocol_b.moving:
+			if protocol_a.moving or protocol_b.moving:
 				asensors, atargets = protocol_a.network
 				bsensors, btargets = protocol_b.network
 				for target in atargets:
@@ -121,9 +123,9 @@ class Simulation():
 				#both protocol share the same targets, but different sensors
 				protocol_a.network = asensors, atargets
 				protocol_b.network = bsensors, atargets
-			elif protocol_a.moving ^ protocol_b.moving:
-				print("both protocols must be of same type")
-				return
+			#elif protocol_a.moving ^ protocol_b.moving:
+			#	print("both protocols must be of same type")
+			#	return
 			#complete shift
 			protocol_a.shift()
 			protocol_b.shift()
@@ -131,17 +133,25 @@ class Simulation():
 			t.append(count)
 			#calculate cover
 			cover = set()
+			alive = set()
 			sensors, targets = protocol_a.network
 			for sensor in sensors:
+				if sensor.battery>=0:
+					alive.add(sensor)
 				if sensor.status:
 					for target in sensor.cover:
 						cover.add(target)
 			a_covering_targets.append(len(cover))
+			a_alive.append(len(alive))
 			cover = set()
+			alive = set()
 			sensors, targets = protocol_b.network
 			for sensor in sensors:
+				if sensor.battery>=0:
+					alive.add(sensor)
 				if sensor.status:
 					for target in sensor.cover:
 						cover.add(target)
 			b_covering_targets.append(len(cover))
-		return t, a_covering_targets, b_covering_targets
+			b_alive.append(len(alive))
+		return t, a_covering_targets, b_covering_targets, a_alive, b_alive
