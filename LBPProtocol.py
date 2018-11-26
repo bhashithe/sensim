@@ -50,7 +50,7 @@ class LBPProtocol(Protocol):
 			for target in sensor.cover:
 				sensors.remove(sensor)
 				for ots in sensors:
-					if target in ots.cover and ots.status:
+					if target in ots.cover and ots.status and ots.battery > sensor.battery:
 						os_cover.add(target)
 				sensors.append(sensor)
 			#issue
