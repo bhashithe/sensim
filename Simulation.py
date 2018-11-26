@@ -94,10 +94,6 @@ class Simulation():
 			plt.show()
 		return t, covering_targets
 
-	def network_compare(self, na, nb):
-		asensors, atargets = na
-		bsensors, btargets = nb
-
 	def compare(self, protocol_a, protocol_b):
 		"""
 		Compare two given protocols with the same network
