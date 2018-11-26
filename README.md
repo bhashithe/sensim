@@ -19,6 +19,7 @@ Create a class, following name convention. If the protocol abbreviation is DEEPS
 ``` python
 from Simulation import Simulation
 from MTLBProtocol import MTLBProtocol
+from Simulation import Simulation
 
 sim = Simulation()
 network_items = sim.generate_network(4,7, max_battery = 5)
@@ -29,18 +30,23 @@ times, coverings = sim.simulate(mtlbp, graphs=True)
 
 ### Compare created protocols
 
-You can compare two protocol objects on how they behave on their environment. This is supported by `Simulation.compare(p1,p2)`. Currently this implementation is not capable of running graphical simulations but it will give the computed outputs for times of the network cover.
+You can compare two protocol objects on how they behave on their environment. This is supported by `Simulation.compare(p1,p2)`. Currently this implementation is not capable of running graphical simulations but it will give the computed outputs for times of the network cover and sensor alive times.
 
 ``` python
+import matplotlib.pyplot as plt
 from MTDEEPSProtocol import MTDEEPSProtocol
 from MTLBProtocol import MTLBProtocol
+from Simulation import Simulation
 
 sim = Simulation()
 network_items = sim.generate_network(4,7, max_battery = 5)
 p1 = MTLBProtocol(network_items)
 p2 = MTDEEPSProtocol(network_items)
 
-times, p1_coverings, p2_coverings = sim.compare(p1, p2)
+times, p1_coverings, p2_coverings, p1_alive, p2_alive = sim.compare(p1, p2)
+plt.plot(times, p1_alive, color='green')
+plt.plot(times, p2_alive, colot='red')
+plt.show()
 ```
 
 ### Important notes
