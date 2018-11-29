@@ -1,6 +1,7 @@
 # SenSim
 
 This is a sensor network simulation framework written in python. This can be used to simulate different protocols on a user defined network of sensors and targets.
+![Simulation](out.gif)
 
 ## Environment
 

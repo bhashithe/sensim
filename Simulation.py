@@ -79,7 +79,7 @@ class Simulation():
 				for sensor in sensors:
 					if sensor.status:
 						for target in sensor.cover:
-							axis.plot([sensor.pos[0], target.pos[0]], [sensor.pos[1], target.pos[1]], linewidth=1, linestyle='-')
+							axis.plot([sensor.pos[0], target.pos[0]], [sensor.pos[1], target.pos[1]], linewidth=1, linestyle='-', color='black')
 							fig.canvas.draw()
 				time.sleep(1)
 			count+=1
