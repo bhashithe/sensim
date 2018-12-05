@@ -1,0 +1,13 @@
+# SenSim
+
+The implementation of the Sensor Simulation is called _SenSim_. This implements the algorithms discussed in the following chapters. Creating a simulation framework for sensors was necessary because the challenges we provided for the protocols were not possible to implement using NS2 or TCL adapters for NS2. We have used Python3 a general purpose hybrid programming language for implementing this simulation, ability to rapidly develop using python was helpful because the time was limited.
+
+Sensors, Targets and Protocols were treated as `Objects` in object oriented programming to help maintain and extend the functionalities of the API. An abstract class of `Protocol` was created to standardise the implementation of any protocol object. Functions `on_rule()`, `off_rule()` and `shift()` were introduced into this abstract class as abstract functions. This made sure that each protocol implemented using the API would have all these functions implemented.
+
+![Class Diagram of the API](clss_diag.png)
+
+Sensors have ability to turn on and off themselves while covering a set of targets. Also they have a battery which depletes while being turned on. Battery consumption will always happen with one unit.
+
+It was needed to generate sensors and targets at random points to randomly generate a sensor network. We have used the numerical library available for python `numpy` to do that. Numpy generates random numbers in an efficient manner for us. Since an environment was set beforehand we needed to uniformly generate random numbers in the whole environment. Numpy provides a function to generate uniform random number pairs which helped to handle this scenario.
+
+Using this API it is possible to simulate a protocol in a given or randomly generated network of targets and sensors. And also, the functionality is given to compare two protocols and how they hold up in a given sensor network. Simulations would generate graphs and return current details about the network, such as how many targets are covered and how long the sensor network is up. Instead of stopping at the first full target cover, we keep the simulation going until there are no sensors available to cover the targets. This has been done considering that one of the challenges we presented for the protocols. Since the targets can move around in the environment, it is possible for a *non-moving target protocol* to 'loose' a covered target during one time step and in another it can cover the same target. The comparisons, usually return more information about the status of the sensor network. For a comparison, apart from the same outputs of a simulation, we get to see how many sensors are alive at a given time step from both protocols.
