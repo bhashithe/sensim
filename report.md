@@ -1,3 +1,22 @@
+# Algorithm
+
+The algorithm used to handle the problem is given bellow.
+
+```
+while available(sensors in network):
+	shift()
+
+shift():
+	check_reach(sensors, targets)
+	on_rule()
+	off_rule()
+	consume_battery(sensors)
+	if sensor.battery <=0:
+		remove(sensor from network)
+```
+
+We try to keep the sensor network up iteratively in each shift execution until all the sensors have consumed their battery. As per any protocol, if the targets are moving, the `check_reach()` of a sensor should be checked. This is to ensure that the cover of the sensor was updated in each time step to handle the target movements. Battery consumption in each shift iteration should always make sure that the otherwise while loop will terminate when there are no sensors with positive battery.
+
 # Implementation
 
 The implementation of the Sensor Simulation is called _SenSim_. This implements the algorithms discussed in the following chapters. Creating a simulation framework for sensors was necessary because the challenges we provided for the protocols were not possible to implement using NS2 or TCL adapters for NS2. We have used Python3 a general purpose hybrid programming language for implementing this simulation, ability to rapidly develop using python was helpful because the time was limited.
@@ -5,6 +24,8 @@ The implementation of the Sensor Simulation is called _SenSim_. This implements 
 Sensors, Targets and Protocols were treated as `Objects` in object oriented programming to help maintain and extend the functionalities of the API. An abstract class of `Protocol` was created to standardise the implementation of any protocol object. 
 
 ![Class Diagram of the API](clss_diag.png)
+
+Implementation of [_SenSim_](https://github.com/bhashithe/sensim) is available at github.
 
 ## Sensors
 
